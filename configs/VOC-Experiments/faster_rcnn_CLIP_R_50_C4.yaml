@@ -1,7 +1,7 @@
 _BASE_: "../Base-RCNN-C4.yaml"
 
 MODEL:
-  KD_REGULRAZIATION: False
+    KD_REGULRAZIATION: False
   BACKBONE:
     NAME: 'build_clip_resnet_backbone'  #"build_clip_resnet_backbone" #"build_clip_resnet_backbone" #"build_clip_resnet_fpn_backbone" # "build_resnet_fpn_backbone"
     FREEZE_AT: 2

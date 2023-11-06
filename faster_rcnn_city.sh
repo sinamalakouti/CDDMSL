@@ -5,7 +5,7 @@ TORCH_DISTRIBUTED_DEBUG=DETAIL python3 ./tools/train_net.py \
         MODEL.CLIP.TEXT_EMB_PATH ./pretrained_ckpt/concept_emb/city_8_emb.pth \
         MODEL.CLIP.OPENSET_TEST_TEXT_EMB_PATH ./pretrained_ckpt/concept_emb/city_8_emb.pth \
         MODEL.WEIGHTS ./pretrained_ckpt/regionclip/regionclip_pretrained-cc_rn50.pth \
-        OUTPUT_DIR /projects/sina/RegionCLIP/output/prediction_city
+        OUTPUT_DIR ./P/output/prediction_city
         #exp_cross_city/baseline/train-on-cityscapes
         #DG_cityscapes_foggy
         #./pretrained_ckpt/regionclip/regionclip_pretrained-cc_rn50x4.pth

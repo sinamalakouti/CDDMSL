@@ -147,13 +147,12 @@ class TrainerBase:
         with EventStorage(start_iter) as self.storage:
             try:
                 self.before_train()
-                print("loading offlinee backbone params")
-                p = '/projects/sina/RegionCLIP/pretrained_ckpt/regionclip/regionclip_pretrained-cc_rn50.pth' #todo
+                print("loading offline backbone params")
 
-                p = './pretrained_ckpt/regionclip/regionclip_pretrained-cc_rn50.pth' #todo
+                p = './pretrained_ckpt/regionclip/regionclip_pretrained-cc_rn50.pth'  # todo
 
                 all_params = \
-                    torch.load(p,'cpu')['model']
+                    torch.load(p, 'cpu')['model']
                 new_params = {}
                 for param in all_params:
                     if 'backbone' in param and 'offline_backbone' not in param and 'teacher_backbone' not in param:
@@ -280,26 +279,13 @@ class SimpleTrainer(TrainerBase):
         self.model = model
 
         self.clipcap_model = ClipCaptionModel(40, 40)
-        # p = torch.load('/Users/sinamalakouti/Desktop/RegionCLIP/test-regionclip/transformer_weights_r50.pt', 'cpu')
-        # p = torch.load('/projects/sina/RegionCLIP/pretrained_ckpt/transformer_r50_regionCLIP.pt', 'cpu')
-        # p = torch.load('/projects/sina/RegionCLIP/pretrained_ckpt/transformers_pretrained_RegionCLIP.pt', 'cpu')#todo
-
-        p = torch.load('./pretrained_ckpt/transformers_pretrained_RegionCLIP.pt','cpu') #todo
+        p = torch.load('./pretrained_ckpt/transformers_pretrained_RegionCLIP.pt', 'cpu') #todo
         self.clipcap_model.load_state_dict(p)
         self.clipcap_model.eval()
         self.clipcap_model = self.clipcap_model.clip_project
         self.cfg = cfg
         for p in self.clipcap_model.parameters():
             p.requires_grad = False
-
-        def get_activation(name):
-            def hook(model, input, output):
-                self.clipcap_model.activation[name] = output[0]
-
-            return hook
-
-        # self.clipcap_model.gpt.transformer.h[0].register_forward_hook(get_activation('first_layer'))
-        # self.clipcap_model = None
 
         self.data_loader = data_loader
         self._data_loader_iter = iter(data_loader)
@@ -311,7 +297,7 @@ class SimpleTrainer(TrainerBase):
 
             image_consistency_loss = self.model(data, clipcap_model=None, branch='image_consistency')
             loss['image_cont_loss'] = image_consistency_loss
-            
+
             image_region_consistency_loss = self.model(data, clipcap_model=None,
                                                        branch='image_consistency_regionLevel')
             loss['image_cont_region_loss'] = image_region_consistency_loss
@@ -345,7 +331,7 @@ class SimpleTrainer(TrainerBase):
         loss = {}
 
         ### CPATION CONSISTENCY LOSS ###
-        if self.iter > 10100:
+        if self.iter > 10000:
             # loss = self.model(data, clipcap_model=self.clipcap_model, branch='caption-image-drawing',
             #                   KD_regularization=self.cfg.MODEL.KD_REGULRAZIATION)
             # loss_caption_pl_image = self.model(data, clipcap_model=self.clipcap_model, branch='caption_pl_img',
@@ -356,17 +342,20 @@ class SimpleTrainer(TrainerBase):
             # loss.update(loss_caption_pl_image)
             # loss.update(loss_caption_pl_region)
 
-            caption_consistency_loss = self.model(data, clipcap_model=self.clipcap_model, branch='caption_consistency', KD_regularization=self.cfg.MODEL.KD_REGULRAZIATION )
+            caption_consistency_loss = self.model(data, clipcap_model=self.clipcap_model, branch='caption_consistency',
+                                                  KD_regularization=self.cfg.MODEL.KD_REGULRAZIATION)
             loss.update(caption_consistency_loss)
             region_consistency_loss = self.model(data, clipcap_model=self.clipcap_model,
-                                                 branch='caption_consistency_regionLevel', KD_regularization=self.cfg.MODEL.KD_REGULRAZIATION)
+                                                 branch='caption_consistency_regionLevel',
+                                                 KD_regularization=self.cfg.MODEL.KD_REGULRAZIATION)
             loss['cont_region_loss'] = region_consistency_loss
 
             # supervised_target_loss = self.model(data, branch='supervised_target')
             # for key in supervised_target_loss:
             #     loss['target_' + key] = supervised_target_loss[key]
         else:
-            caption_consistency_loss = self.model(data, clipcap_model=self.clipcap_model, branch='caption_consistency', KD_regularization=False)
+            caption_consistency_loss = self.model(data, clipcap_model=self.clipcap_model, branch='caption_consistency',
+                                                  KD_regularization=False)
             for key in caption_consistency_loss.keys():
                 loss[key] = caption_consistency_loss[key] * 0.0
         # Image consistency ###
@@ -449,6 +438,7 @@ class SimpleTrainer(TrainerBase):
     def load_state_dict(self, state_dict):
         super().load_state_dict(state_dict)
         self.optimizer.load_state_dict(state_dict["optimizer"])
+
 
 class AMPTrainer(SimpleTrainer):
     """
