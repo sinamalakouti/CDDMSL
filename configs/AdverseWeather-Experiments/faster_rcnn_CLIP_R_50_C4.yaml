@@ -1,0 +1,53 @@
+BASE_: "../Base-RCNN-C4.yaml"
+
+MODEL:
+  KD_REGULRAZIATION: True
+  BACKBONE:
+    NAME: 'build_clip_resnet_backbone'  #"build_clip_resnet_backbone" #"build_clip_resnet_backbone" #"build_clip_resnet_fpn_backbone" # "build_resnet_fpn_backbone"
+    FREEZE_AT: 2
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  MASK_ON: False
+  RESNETS:
+    DEPTH: 50 #200
+    OUT_FEATURES: ['res4', 'res5']  #["res4"]
+    NORM: FrozenBN
+#    STEM_OUT_CHANNELS: 64
+#    RES2_OUT_CHANNELS: 256 #320
+  PIXEL_MEAN: [0.48145466, 0.4578275, 0.40821073] # [103.530, 116.280, 123.675] #
+  PIXEL_STD: [0.26862954, 0.26130258, 0.27577711] # [1.0, 1.0, 1.0] #
+  # CLIP:  # only for RN50x4
+  # TEXT_EMB_DIM: 640
+  CLIP:
+    CROP_REGION_TYPE: "RPN"
+    USE_TEXT_EMB_CLASSIFIER: True
+    CLSS_TEMP: 0.01
+    NO_BOX_DELTA: False
+    BG_CLS_LOSS_WEIGHT: 0.2
+    FOCAL_SCALED_LOSS: 0.5
+  ROI_BOX_HEAD: #only for RN50x4
+    POOLER_RESOLUTION: 14
+  ROI_HEADS:
+    NAME: "CLIPRes5ROIHeads"
+    NUM_CLASSES: 8
+INPUT:
+    MIN_SIZE_TRAIN: (480, 512, 544, 576, 608, 640, 672, 704, 736, 768, 800) #(640, 672, 704, 736, 768, 800)
+        #MIN_SIZE_TRAIN: (480,) #(480, 512, 544, 576, 608, 640)
+    MIN_SIZE_TEST: 800
+    FORMAT: "RGB"
+DATASETS:
+  TRAIN: ('cityscapes_DG_train',) #('voc_2007_trainval', 'voc_2012_trainval', 'dt_Clipart_2007_trainval', 'dt_Clipart_2012_trainval')  #('voc_clipart_2007_trainval', 'voc_clipart_2012_trainval')
+  TEST:  ('cityscapes_foggy_val', "bdd_100k_val", "cityscapes_val", ) #('Clipart1k_test','Watercolor_test','Comic_test', 'voc_2007_test',)
+TEST:
+        EVAL_PERIOD: 2500 # 5000 #50000
+SOLVER:
+  IMS_PER_BATCH: 8  #16
+  BASE_LR: 0.001 # 0.002
+  STEPS: (10000, 18000, 25000, 30000, 35000, 39000, 49000)
+  MAX_ITER: 60000  # 17.4epochs
+  WARMUP_ITERS: 100
+  CLIP_GRADIENTS:
+        ENABLED: True
+        CLIP_TYPE: "norm"
+        CLIP_VALUE: 5.0
+  #FORMAT:      "RGB"
+~
