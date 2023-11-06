@@ -43,3 +43,7 @@ You can find checkpoints required for both training and evaluation in the google
 
 
 ## Inference
+
+# Other Information
+- For training the CLIPCAP  model, please refer to https://github.com/rmokady/CLIP_prefix_caption
+- For training/inference of the RegionCLIP pre-trained model, please refer to https://github.com/microsoft/RegionCLIP
