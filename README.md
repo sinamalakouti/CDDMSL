@@ -41,6 +41,9 @@ You can find checkpoints required for both training and evaluation in the google
 
 ## Training 
 
+- Example for training a real-to-artistic generalization is available in faster_rcnn_voc.sh
+An example for training an adverse-weather generalization is available in faster_rcnn_city.sh
+
 
 ## Inference
 
