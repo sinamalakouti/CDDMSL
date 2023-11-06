@@ -149,7 +149,7 @@ class TrainerBase:
                 self.before_train()
                 print("loading offline backbone params")
 
-                p = './pretrained_ckpt/regionclip/regionclip_pretrained-cc_rn50.pth'  # todo
+                p = self.cfg.MODEL.PRE_TRAINED_RCLIP_PATH
 
                 all_params = \
                     torch.load(p, 'cpu')['model']
@@ -279,8 +279,8 @@ class SimpleTrainer(TrainerBase):
         self.model = model
 
         self.clipcap_model = ClipCaptionModel(40, 40)
-        p = torch.load('./pretrained_ckpt/transformers_pretrained_RegionCLIP.pt', 'cpu') #todo
-        self.clipcap_model.load_state_dict(p)
+        params = torch.load(self.cfg.MODEL.VISION_TO_LANG_PATH, 'cpu')
+        self.clipcap_model.load_state_dict(params)
         self.clipcap_model.eval()
         self.clipcap_model = self.clipcap_model.clip_project
         self.cfg = cfg

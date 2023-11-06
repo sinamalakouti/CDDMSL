@@ -92,12 +92,6 @@ class GeneralizedRCNN(nn.Module):
         self.use_clip_c4 = use_clip_c4  # if True, use C4 mode where roi_head uses the last resnet layer from backbone
         self.use_clip_attpool = use_clip_attpool  # if True (C4+text_emb_as_classifier), use att_pool to replace default mean pool
 
-        # self.clipcap_model = ClipCaptionModel(40, 40)
-        # p = torch.load('/Users/sinamalakouti/Desktop/test-regionclip/transformer_weights.pt', 'cpu') #todo
-        # self.clipcap_model.load_state_dict(p)
-
-        # self.projector = nn.Linear(30720, 256)
-
         self.projector = nn.Sequential(
             nn.Linear(768, 768),
             nn.ReLU(),
@@ -379,124 +373,6 @@ class GeneralizedRCNN(nn.Module):
                 "pred_boxes", "pred_classes", "scores", "pred_masks", "pred_keypoints"
         """
         torch.cuda.empty_cache()
-        if False and (not self.training  or branch =='visuzliaiton_inference'):
-            import atexit
-            import bisect
-            import multiprocessing as mp
-            from collections import deque
-            import cv2
-            from detectron2.data import MetadataCatalog
-            from detectron2.engine.defaults import DefaultPredictor
-            from detectron2.utils.video_visualizer import VideoVisualizer
-            from detectron2.utils.visualizer import ColorMode, Visualizer
-
-            p = '/projects/sina/RegionCLIP/output/model_regionClip_baseline_prompt.pth'
-            all_params = \
-                torch.load(p, self.device)['model']
-            new_params = {}
-            for param in all_params:
-                if 'backbone' in param and 'offline_backbone' not in param and 'teacher_backbone' not in param:
-                    new_params[param[9:]] = all_params[param]
-
-            self.offline_backbone.load_state_dict(new_params, self.device)
-
-            vis_output = None
-
-            images = self.preprocess_image(batched_inputs)
-
-
-            # ours_features = self.backbone.attnpool(self.backbone(images)['res5'])
-            ours_features = self.backbone(images.tensor)
-
-            if self.proposal_generator is not None:
-                proposals, _ = self.proposal_generator(images, ours_features, None)
-            else:
-                assert "proposals" in batched_inputs[0]
-                proposals = [x["proposals"].to(self.device) for x in batched_inputs]
-
-            if self.use_clip_c4:  # use C4 + resnet weights from CLIP
-                if self.use_clip_attpool:  # use att_pool from CLIP to match dimension
-                    results, _ = self.roi_heads(images, ours_features, proposals, None, res5=self.backbone.layer4,
-                                                attnpool=self.backbone.attnpool)
-                else:  # use default mean pool
-                    results, _ = self.roi_heads(images, ours_features, proposals, None, res5=self.backbone.layer4)
-            else:  # default setting
-                results, _ = self.roi_heads(images, ours_features, proposals, None)
-
-            assert not torch.jit.is_scripting(), "Scripting is not supported for postprocess."
-            results = GeneralizedRCNN._postprocess(results, batched_inputs, images.image_sizes)
-            p = '/projects/sina/RegionCLIP/predictions/'
-
-            for i in range(len(batched_inputs)):
-                x = batched_inputs[i]
-                image = x['image']
-                image_id =x['image_id']
-                print("results")
-                print(results[i])
-                visualizer = Visualizer(image, self.metadata, instance_mode=self.instance_mode)
-                vis_output = visualizer.draw_instance_predictions(predictions=results[i])
-                vis_output.save(p+"imgId_{}_image".format(image_id))
-
-        if False and (not self.training or branch == "caption-generation-inference"):
-
-            clipcap_model = ClipCaptionModel(40, 40)
-            p = torch.load('./pretrained_ckpt/transformers_pretrained_RegionCLIP.pt', 'cpu')
-            clipcap_model.load_state_dict(p)
-            clipcap_model.eval()
-            for p in clipcap_model.parameters():
-                p.requires_grad = False
-
-            def get_activation(name):
-                def hook(model, input, output):
-                    clipcap_model.activation[name] = output[0]
-
-                return hook
-
-            clipcap_model.gpt.transformer.h[0].register_forward_hook(get_activation('first_layer'))
-
-            # p = './pretrained_ckpt/regionclip/regionclip_pretrained-cc_rn50.pth'
-            p = '/projects/sina/RegionCLIP/output/model_regionClip_baseline_prompt.pth' #todo
-            all_params = \
-                torch.load(p, self.device)['model']
-            new_params = {}
-            for param in all_params:
-                if 'backbone' in param and 'offline_backbone' not in param and 'teacher_backbone' not in param:
-                    new_params[param[9:]] = all_params[param]
-
-            self.offline_backbone.load_state_dict(new_params, self.device)
-
-            from torchvision.utils import save_image
-            with torch.no_grad():
-                if self.device == torch.device('cuda:0') or True:
-                    # import clip
-                    # model, preprocess = clip.load("RN50", device='cpu')
-
-                    images = self.preprocess_image_test(batched_inputs)
-
-                    prefix_ours = self.backbone.attnpool(self.backbone(images)['res5'])
-
-                    prefix_offline = self.offline_backbone.attnpool(self.offline_backbone(images)['res5'])
-                    text = ""
-                    p = '/projects/sina/RegionCLIP/captions/'
-
-                    for i in range(len(images)):
-                        print("image  :   ", batched_inputs[i]['file_name'])
-                        text += (batched_inputs[i]['file_name'] + "\n")
-
-                        _, ours_caption = generate_first_feature_caption(prefix_ours.to('cpu'), clipcap_model.to('cpu'),
-                                                                         40)
-                        print("ours:    ", ours_caption)
-                        text += ("Ours: {}\n".format(ours_caption))
-
-                        _, offline_caption = generate_first_feature_caption(prefix_offline.to('cpu'),
-                                                                            clipcap_model.to('cpu'), 40)
-
-                        print("RegionCLIP:   ", offline_caption)
-                        text += ("RegionCLIP:   {} \n".format(offline_caption))
-
-                        with open(p + str(batched_inputs[i]['image_id']) + "_caption.txt", "w") as file:
-                            # Write the text to the file
-                            file.write(text)
 
         if not self.training:
             return self.inference(batched_inputs)
@@ -555,7 +431,7 @@ class GeneralizedRCNN(nn.Module):
                     gt_instances = [x["instances"].to(self.device) for x in batched_inputs]
                 else:
                     gt_instances = None
-                # todo: should I set the with toch.grad to false?
+
                 proposals_rpn, _ = self.proposal_generator(images_src, src_features, gt_instances)
 
                 rand_inds = [torch.randperm(len(p))[:16].to(self.device) for p in proposals_rpn]
@@ -574,7 +450,7 @@ class GeneralizedRCNN(nn.Module):
 
             target_features = v2l(target_features, clipcap_model.to(self.device))
             target_features = self.projector(target_features)
-            # 4. move all features to the same device ?
+
 
             src_features = torch.cat(GatherLayer.apply(src_features), dim=0)
             target_features = torch.cat(GatherLayer.apply(target_features), dim=0)
@@ -609,7 +485,7 @@ class GeneralizedRCNN(nn.Module):
                     gt_instances = [x["instances"].to(self.device) for x in batched_inputs]
                 else:
                     gt_instances = None
-                # todo: should I set the with toch.grad to false?
+
                 proposals_rpn, _ = self.proposal_generator(images_src, src_features, gt_instances)
 
                 rand_inds = [torch.randperm(len(p))[:16].to(self.device) for p in proposals_rpn]
@@ -626,7 +502,7 @@ class GeneralizedRCNN(nn.Module):
             src_features = self.projector(src_features)
 
             target_features = self.projector(target_features)
-            # 4. move all features to the same device ?
+
 
             src_features = torch.cat(GatherLayer.apply(src_features), dim=0)
             target_features = torch.cat(GatherLayer.apply(target_features), dim=0)

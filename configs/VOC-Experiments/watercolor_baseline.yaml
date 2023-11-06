@@ -5,6 +5,8 @@ MODEL:
     NAME: 'build_clip_resnet_backbone'  #"build_clip_resnet_backbone" #"build_clip_resnet_backbone" #"build_clip_resnet_fpn_backbone" # "build_resnet_fpn_backbone"
     FREEZE_AT: 2
   WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  PRE_TRAINED_RCLIP_PATH: "./pretrained_ckpt/regionclip/regionclip_pretrained-cc_rn50.pth"
+  VISION_TO_LANG_PATH: "./pretrained_ckpt/transformers_pretrained_RegionCLIP.pt"
   MASK_ON: False
   RESNETS:
     DEPTH: 50 #200

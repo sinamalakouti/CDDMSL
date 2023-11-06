@@ -1,22 +1,20 @@
 _BASE_: "../Base-RCNN-C4.yaml"
 
 MODEL:
-    KD_REGULRAZIATION: False
+  KD_REGULRAZIATION: False
   BACKBONE:
     NAME: 'build_clip_resnet_backbone'  #"build_clip_resnet_backbone" #"build_clip_resnet_backbone" #"build_clip_resnet_fpn_backbone" # "build_resnet_fpn_backbone"
     FREEZE_AT: 2
-  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  WEIGHTS: ""
+  PRE_TRAINED_RCLIP_PATH: "./pretrained_ckpt/regionclip/regionclip_pretrained-cc_rn50.pth"
+  VISION_TO_LANG_PATH: "./pretrained_ckpt/transformers_pretrained_RegionCLIP.pt"
   MASK_ON: False
   RESNETS:
     DEPTH: 50 #200
     OUT_FEATURES: ['res4', 'res5']  #["res4"]
     NORM: FrozenBN
-#    STEM_OUT_CHANNELS: 64
-#    RES2_OUT_CHANNELS: 256 #320
   PIXEL_MEAN: [0.48145466, 0.4578275, 0.40821073] # [103.530, 116.280, 123.675] #
   PIXEL_STD: [0.26862954, 0.26130258, 0.27577711] # [1.0, 1.0, 1.0] #
-  # CLIP:  # only for RN50x4
-  # TEXT_EMB_DIM: 640
   CLIP:
     CROP_REGION_TYPE: "RPN"
     USE_TEXT_EMB_CLASSIFIER: True
@@ -43,10 +41,6 @@ SOLVER:
   IMS_PER_BATCH: 8   #8  #16
   BASE_LR: 0.002 # 0.002
   STEPS: (10000,18000, 25000, 30000, 35000, 39000, 49000)
-  # STEPS: (10000, 26000, 30000, 40000, 50000,58000,78000)
-
-  # STEPS: (15000, 23000, 30000, 35000, 40000, 49000, 59000)
-  #10km  18000, 25000, 30000, 35000, 39000, 49000)
   MAX_ITER: 90000  # 17.4epochs
   WARMUP_ITERS: 100
   CLIP_GRADIENTS:
