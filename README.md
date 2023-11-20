@@ -5,6 +5,30 @@ For any questions or more information, please contact Sina Malakouti (sem238@pit
 
 **This repo will be updated soon!**
 
+### Methodology
+<p align="center">
+<img src="figures/model.pdf" width=80% height=80%
+class="center">
+</p>
+
+
+### Results
+
+#### Real-to-Artisitc Generalization
+
+<p align="center">
+<img src="figures/DG_artistic.pdf" width=80% height=80%
+class="center">
+</p>
+
+
+#### Adverse-Weather Generalization
+
+<p align="center">
+<img src="figures/weather.pdf" width=80% height=80%
+class="center">
+</p>
+
 ## Setup
 For installing the project, please see RegionCLIP (https://github.com/microsoft/RegionCLIP) and Detectron2 (https://github.com/facebookresearch/detectron2). 
 
