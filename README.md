@@ -6,6 +6,8 @@ For any questions or more information, please contact Sina Malakouti (sem238@pit
 This repo will be updated soon!
 
 ## Setup
+For setup please see
+1. 
 
 ## Datasets
 ### Real-to-Artistic
@@ -43,6 +45,9 @@ You can find checkpoints required for both training and evaluation in the google
 
 - Example for training a real-to-artistic generalization is available in faster_rcnn_voc.sh
 An example for training an adverse-weather generalization is available in faster_rcnn_city.sh
+
+## Acknowledgement
+This repo is based on Detectron2 and RegionCLIP repositories. 
 
 
 ## Inference
