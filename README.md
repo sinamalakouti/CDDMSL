@@ -14,7 +14,7 @@ For installing the project, please see RegionCLIP (https://github.com/microsoft/
 ### Real-to-Artistic
 For this task, we used PASCAL-VOC as a labeled domain. Then, either Clipart, Comic, or Watercolor is used as the unlabeled domain. For instance, if Pascal-VOC and Clipart are used as labeled and unlabeled source domains. Then, Comics and Watercolor are the target domains in the DG experiment. 
 
-Please see https://github.com/naoto0804/cross-domain-detection  for downloading the dataset. 
+Please see https://github.com/naoto0804/cross-domain-detection for downloading the dataset. 
 
 Please see the following files for dataset creation and/or modification: 
 
@@ -32,7 +32,7 @@ Please see the following files for dataset creation and/or modification:
 
 ## Pre-trained files
 
-Please download pre-trained parameters from Google Drive by clicking [here]((https://drive.google.com/drive/folders/1KrXv2KgX5dIBBuPglYsc13oIjh7HRzcG)) (will be updated soon to cover all parameters)
+Please download pre-trained parameters from Google Drive by clicking [here](https://drive.google.com/drive/folders/1KrXv2KgX5dIBBuPglYsc13oIjh7HRzcG) (will be updated soon to cover all parameters)
 
 You can find checkpoints required for both training and evaluation in the google drive. Some of the available parameters are: 
 - RegionCLIP pretrained parameters
