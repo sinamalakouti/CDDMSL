@@ -1,7 +1,7 @@
 # Semi-Supervised Domain Generalization for Object Detection via Language-Guided Feature Alignment 	(CDDMSL)
 
-This is the code for Semi-Supervised Domain Generalization for Object Detection via Language-Guided Feature Alignment, accepted at BMVC2023.
-For any questions or more information, please contact [Sina Malakouti](sem238@pitt.edu)
+This is the code for [Semi-Supervised Domain Generalization for Object Detection via Language-Guided Feature Alignment](https://arxiv.org/abs/2309.13525), accepted at BMVC2023.
+For any questions or more information, please contact [Sina Malakouti](sem238@pitt.edu).
 
 **This repo will be updated soon!**
 
