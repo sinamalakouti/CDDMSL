@@ -32,7 +32,8 @@ Please see the following files for dataset creation and/or modification:
 
 ## Pre-trained files
 
-Please download pre-trained parameters from Google Drive by clicking [here]([(https://drive.google.com/drive/folders/1KrXv2KgX5dIBBuPglYsc13oIjh7HRzcG)]) (will be updated soon to cover all parameters)
+Please download pre-trained parameters from Google Drive by clicking [here]((https://drive.google.com/drive/folders/1KrXv2KgX5dIBBuPglYsc13oIjh7HRzcG)) (will be updated soon to cover all parameters)
+
 You can find checkpoints required for both training and evaluation in the google drive. Some of the available parameters are: 
 - RegionCLIP pretrained parameters
 - Text Embedding (VOC)
