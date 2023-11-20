@@ -1,7 +1,7 @@
 # Semi-Supervised Domain Generalization for Object Detection via Language-Guided Feature Alignment 	(CDDMSL)
 
 This is the code for Semi-Supervised Domain Generalization for Object Detection via Language-Guided Feature Alignment, accepted at BMVC2023.
-For any questions or more information, please contact Sina Malakouti (sem238@pitt.edu)
+For any questions or more information, please contact [Sina Malakouti](sem238@pitt.edu)
 
 **This repo will be updated soon!**
 
@@ -56,7 +56,7 @@ Please see the following files for dataset creation and/or modification:
 
 ## Pre-trained files
 
-Please download pre-trained parameters from Google [Drive](https://drive.google.com/drive/folders/1KrXv2KgX5dIBBuPglYsc13oIjh7HRzcG). Will be updated soon to cover all parameters)
+Please download pre-trained parameters from [Google Drive](https://drive.google.com/drive/folders/1KrXv2KgX5dIBBuPglYsc13oIjh7HRzcG). Will be updated soon to cover all parameters)
 
 You can find checkpoints required for both training and evaluation in the google drive. Some of the available parameters are: 
 - RegionCLIP pretrained parameters
