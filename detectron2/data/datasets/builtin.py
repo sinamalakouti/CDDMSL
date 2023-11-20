@@ -408,7 +408,6 @@ def register_all_comic(root):
 
 
 def register_all_bdd(root):
-    # root = "manifold://mobile_vision_dataset/tree/yujheli/dataset"
     label_dir = os.path.join(root,'bdd100k/images/100k/val.json')
     img_dir = os.path.join(root, 'bdd100k/images/100k/data')
     register_coco_instances("bdd_100k_val", {},  label_dir, img_dir)
