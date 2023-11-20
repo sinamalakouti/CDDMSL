@@ -7,7 +7,7 @@ MODEL:
     FREEZE_AT: 2
   WEIGHTS: ""
   PRE_TRAINED_RCLIP_PATH: "./pretrained_ckpt/regionclip/regionclip_pretrained-cc_rn50.pth"
-  VISION_TO_LANG_PATH: "./pretrained_ckpt/transformers_pretrained_RegionCLIP.pt"
+  VISION_TO_LANG_PATH: "./pretrained_ckpt/transformers_pretrained_RegionCLIP.pth"
   MASK_ON: False
   RESNETS:
     DEPTH: 50 #200
