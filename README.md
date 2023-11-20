@@ -1,7 +1,12 @@
-# Semi-Supervised Domain Generalization for Object Detection via Language-Guided Feature Alignment 	(CDDMSL)
 
-This is the code for [Semi-Supervised Domain Generalization for Object Detection via Language-Guided Feature Alignment](https://arxiv.org/abs/2309.13525), accepted at BMVC2023.
-For any questions or more information, please contact [Sina Malakouti](sem238@pitt.edu).
+ **Semi-Supervised Domain Generalization for Object Detection via Language-Guided Feature Alignment (CDDMSL)** <br>
+> [Sina Malakouti](https://www.linkedin.com/in/sinamalakouti) and [Adriana Kovashka](https://people.cs.pitt.edu/~kovashka/)<br>
+
+This is the official repo for Semi-Supervised Domain Generalization for Object Detection via Language-Guided Feature Alignment (BMVC2023)
+
+Please contact [Sina Malakouti](sem238@pitt.edu) for any questions or more information.
+
+[**Paper**](https://papers.bmvc2023.org/0444.pdf) | [**Video**](https://bmvc2022.mpi-inf.mpg.de/BMVC2023/0444_video.mp4) | [**Poster**](https://bmvc2022.mpi-inf.mpg.de/BMVC2023/0444_poster.pdf) | [**Supplement**](https://bmvc2022.mpi-inf.mpg.de/BMVC2023/0444_supp.pdf)
 
 **This repo will be updated soon!**
 
