@@ -3,13 +3,14 @@
 This is the code for Semi-Supervised Domain Generalization for Object Detection via Language-Guided Feature Alignment, accepted at BMVC2023.
 For any questions or more information, please contact Sina Malakouti (sem238@pitt.edu)
 
-This repo will be updated soon!
+**This repo will be updated soon!**
 
 ## Setup
-For setup please see
-1. 
+For installing the project, please see RegionCLIP (https://github.com/microsoft/RegionCLIP) and Detectron2 (https://github.com/facebookresearch/detectron2). 
 
 ## Datasets
+For generating voc->(clipart, watercolor, comic) please refer to [here]([url](https://github.com/naoto0804/cross-domain-detection/tree/master/datasets)).
+
 ### Real-to-Artistic
 For this task, we used PASCAL-VOC as a labeled domain. Then, either Clipart, Comic, or Watercolor is used as the unlabeled domain. For instance, if Pascal-VOC and Clipart are used as labeled and unlabeled source domains. Then, Comics and Watercolor are the target domains in the DG experiment. 
 
@@ -31,7 +32,7 @@ Please see the following files for dataset creation and/or modification:
 
 ## Pre-trained files
 
-Please download pre-trained parameters from Google Drive here (will be updated soon)
+Please download pre-trained parameters from Google Drive [here]([url](https://drive.google.com/drive/folders/1KrXv2KgX5dIBBuPglYsc13oIjh7HRzcG)) (will be updated soon to cover all parameters)
 You can find checkpoints required for both training and evaluation in the google drive. Some of the available parameters are: 
 - RegionCLIP pretrained parameters
 - Text Embedding (VOC)
@@ -46,12 +47,12 @@ You can find checkpoints required for both training and evaluation in the google
 - Example for training a real-to-artistic generalization is available in faster_rcnn_voc.sh
 An example for training an adverse-weather generalization is available in faster_rcnn_city.sh
 
-## Acknowledgement
-This repo is based on Detectron2 and RegionCLIP repositories. 
-
-
 ## Inference
+During training, we evaluate all source and target domains. However, for inference only, please set the weights of the modules and add the flag --eval-only in the bash file. 
 
 # Other Information
 - For training the CLIPCAP  model, please refer to https://github.com/rmokady/CLIP_prefix_caption
 - For training/inference of the RegionCLIP pre-trained model, please refer to https://github.com/microsoft/RegionCLIP
+
+## Acknowledgement
+This repo is based on Detectron2 and RegionCLIP repositories. 
