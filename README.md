@@ -7,7 +7,7 @@ For any questions or more information, please contact Sina Malakouti (sem238@pit
 
 ### Methodology
 <p align="center">
-<img src="figures/model.pdf" width=80% height=80%
+<img src="figures/model.png" width=80% height=80%
 class="center">
 </p>
 
@@ -17,7 +17,7 @@ class="center">
 #### Real-to-Artisitc Generalization
 
 <p align="center">
-<img src="figures/DG_artistic.pdf" width=80% height=80%
+<img src="figures/DG_artistic.png" width=80% height=80%
 class="center">
 </p>
 
@@ -25,7 +25,7 @@ class="center">
 #### Adverse-Weather Generalization
 
 <p align="center">
-<img src="figures/weather.pdf" width=80% height=80%
+<img src="figures/weather.png" width=80% height=80%
 class="center">
 </p>
 
