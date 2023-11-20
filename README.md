@@ -14,7 +14,7 @@ class="center">
 
 ### Results
 
-#### Real-to-Artisitc Generalization
+#### Real-to-Artistic Generalization
 
 <p align="center">
 <img src="docs/DG_artistic.png" width=80% height=80%
@@ -25,7 +25,7 @@ class="center">
 #### Adverse-Weather Generalization
 
 <p align="center">
-<img src="docs/weather.png" width=80% height=80%
+<img src="docs/DG_weather.png" width=80% height=80%
 class="center">
 </p>
 
