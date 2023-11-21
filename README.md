@@ -57,7 +57,7 @@ Please download cityscapes and [foggy-cityscapes](https://www.cityscapes-dataset
 Please see the following files for dataset creation and/or modification: 
 
 - detectron2/data/datasets/cityscapes.py
-- detectron2/data/datasets/builtin.py #for bdd100k, we used coco to register the data
+- detectron2/data/datasets/builtin.py. For bdd100k, we used coco to register the data
 
 ## Pre-trained files
 
@@ -75,7 +75,7 @@ You can find checkpoints required for both training and evaluation in the google
 ## Training 
 
 - Example for training a real-to-artistic generalization is available in faster_rcnn_voc.sh
-An example for training an adverse-weather generalization is available in faster_rcnn_city.sh
+- Example for training an adverse-weather generalization is available in faster_rcnn_city.sh
 
 ## Inference
 During training, we evaluate all source and target domains. However, for inference only, please set the weights of the modules and add the flag --eval-only in the bash file. 
