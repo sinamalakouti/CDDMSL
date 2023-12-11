@@ -75,14 +75,31 @@ You can find checkpoints required for both training and evaluation in the google
 ## Training 
 
 - Example for training a real-to-artistic generalization is available in faster_rcnn_voc.sh
-- Example for training an adverse-weather generalization is available in faster_rcnn_city.sh
+- Example of training an adverse-weather generalization is available in faster_rcnn_city.sh
 
 ## Inference
 During training, we evaluate all source and target domains. However, for inference only, please set the weights of the modules and add the flag --eval-only in the bash file. 
 
+
+## ClipCap training
+We have provided the pre-trained parameters for the ClipCap mapping-network [here](https://drive.google.com/drive/folders/1agMffWa69paFGYs3s7ADT8VxStCWSTEt). 
+If you wish to do the pre-training, please follow the following steps: 
+
+- Follow the instructions on [ClipCap](https://github.com/rmokady/CLIP_prefix_caption) to install the project and download the coco dataset. 
+- Include the [RegionCLIP2CLIP.py](https://github.com/sinamalakouti/CDDMSL/blob/main/clipcap_scripts/%20RegionCLIP2CLIP.py) in the ClipCap repository.
+- Replace the parse_coco.py provided [here](https://github.com/sinamalakouti/CDDMSL/blob/main/clipcap_scripts/parse_coco.py) with the one in the main reposotiry. The only difference is that we need to rename some of the parameters in the RegionClip encoder so that the naming format matches the CLIP's naming to successfully train the mapping network.
+- Then execute the following commands:
+
+```
+python parse_coco.py --clip_model_type RN50
+```
+```
+python train.py --only_prefix --data ./data/coco/oscar_split_RN50_train.pkl --out_dir ./coco_train/ --mapping_type transformer  --num_layres 8 --prefix_length 40 --prefix_length_clip 40 --is_rn
+```
+
 # Other Information
-- For training the CLIPCAP  model, please refer to [here](https://github.com/rmokady/CLIP_prefix_caption)
 - For training/inference of the RegionCLIP pre-trained model, please refer to [here]((https://github.com/microsoft/RegionCLIP)).
+
 
 ## Acknowledgement
 This repo is based on Detectron2 and RegionCLIP repositories. 
