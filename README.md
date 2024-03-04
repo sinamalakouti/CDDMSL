@@ -6,7 +6,7 @@ This is the official repo for Semi-Supervised Domain Generalization for Object D
 
 Please contact [Sina Malakouti](https://sinamalakouti.github.io/) at sem238(at)pitt(dot)edu or siinamalakouti(at)gmail(dot)com for any questions or more information.
 
-[**Paper**](https://papers.bmvc2023.org/0444.pdf) | [**Video**](https://bmvc2022.mpi-inf.mpg.de/BMVC2023/0444_video.mp4) | [**Poster**](https://bmvc2022.mpi-inf.mpg.de/BMVC2023/0444_poster.pdf) | [**Supplement**](https://bmvc2022.mpi-inf.mpg.de/BMVC2023/0444_supp.pdf)
+[**arXiv**](https://papers.bmvc2023.org/0444.pdf) | [**Official BMVC Proceeding**](https://papers.bmvc2023.org/0444.pdf) [**Video**](https://bmvc2022.mpi-inf.mpg.de/BMVC2023/0444_video.mp4) | [**Poster**](https://bmvc2022.mpi-inf.mpg.de/BMVC2023/0444_poster.pdf) | [**Supplement**](https://bmvc2022.mpi-inf.mpg.de/BMVC2023/0444_supp.pdf) | [**BMVC Project Page**](https://proceedings.bmvc2023.org/444/)
 
 **This repo will be updated soon!**
 
@@ -99,6 +99,17 @@ python train.py --only_prefix --data ./data/coco/oscar_split_RN50_train.pkl --ou
 
 # Other Information
 - For training/inference of the RegionCLIP pre-trained model, please refer to [here]((https://github.com/microsoft/RegionCLIP)).
+
+# Citation
+
+@inproceedings{Malakouti_2023_BMVC,
+author    = {Sina Malakouti and Adriana Kovashka},
+title     = {Semi-Supervised Domain Generalization for Object Detection via Language-Guided Feature Alignment},
+booktitle = {34th British Machine Vision Conference 2023, {BMVC} 2023, Aberdeen, UK, November 20-24, 2023},
+publisher = {BMVA},
+year      = {2023},
+url       = {https://papers.bmvc2023.org/0444.pdf}
+}
 
 
 ## Acknowledgement
