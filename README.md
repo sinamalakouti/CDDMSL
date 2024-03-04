@@ -101,7 +101,9 @@ python train.py --only_prefix --data ./data/coco/oscar_split_RN50_train.pkl --ou
 - For training/inference of the RegionCLIP pre-trained model, please refer to [here]((https://github.com/microsoft/RegionCLIP)).
 
 # Citation
+If you find this repo useful, please consider citing our paper:
 
+```
 @inproceedings{Malakouti_2023_BMVC,
 author    = {Sina Malakouti and Adriana Kovashka},
 title     = {Semi-Supervised Domain Generalization for Object Detection via Language-Guided Feature Alignment},
@@ -110,7 +112,7 @@ publisher = {BMVA},
 year      = {2023},
 url       = {https://papers.bmvc2023.org/0444.pdf}
 }
-
+```
 
 ## Acknowledgement
 This repo is based on Detectron2 and RegionCLIP repositories. 
