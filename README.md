@@ -4,7 +4,7 @@
 
 This is the official repo for Semi-Supervised Domain Generalization for Object Detection via Language-Guided Feature Alignment (BMVC2023)
 
-Please contact [Sina Malakouti](sem238@pitt.edu) for any questions or more information.
+Please contact [Sina Malakouti](mailto:sem238@pitt.edu) for any questions or more information.
 
 [**Paper**](https://papers.bmvc2023.org/0444.pdf) | [**Video**](https://bmvc2022.mpi-inf.mpg.de/BMVC2023/0444_video.mp4) | [**Poster**](https://bmvc2022.mpi-inf.mpg.de/BMVC2023/0444_poster.pdf) | [**Supplement**](https://bmvc2022.mpi-inf.mpg.de/BMVC2023/0444_supp.pdf)
 
