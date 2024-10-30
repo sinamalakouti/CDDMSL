@@ -1,4 +1,4 @@
-
+z
 > **Semi-Supervised Domain Generalization for Object Detection via Language-Guided Feature Alignment (CDDMSL)** <br>
 > [Sina Malakouti](https://www.linkedin.com/in/sinamalakouti) and [Adriana Kovashka](https://people.cs.pitt.edu/~kovashka/)<br>
 
@@ -104,13 +104,11 @@ python train.py --only_prefix --data ./data/coco/oscar_split_RN50_train.pkl --ou
 If you find this repo useful, please consider citing our paper:
 
 ```
-@inproceedings{Malakouti_2023_BMVC,
-author    = {Sina Malakouti and Adriana Kovashka},
-title     = {Semi-Supervised Domain Generalization for Object Detection via Language-Guided Feature Alignment},
-booktitle = {34th British Machine Vision Conference 2023, {BMVC} 2023, Aberdeen, UK, November 20-24, 2023},
-publisher = {BMVA},
-year      = {2023},
-url       = {https://papers.bmvc2023.org/0444.pdf}
+@article{malakouti2023semi,
+  title={Semi-Supervised Domain Generalization for Object Detection via Language-Guided Feature Alignment},
+  author={Malakouti, Sina and Kovashka, Adriana},
+  journal={arXiv preprint arXiv:2309.13525},
+  year={2023}
 }
 ```
 
