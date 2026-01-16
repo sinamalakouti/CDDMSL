@@ -207,50 +207,6 @@ class GeneralizedRCNN(nn.Module):
         return images, images_t
 
 
-        # offline backbone on src
-        prefix_src = self.offline_backbone.attnpool(self.offline_backbone(images_src)['res5'])
-        teacher_features, capsrc = generate_first_feature_caption(prefix_src, clipcap_model.to(self.device), 40)
-        teacher_features = torch.stack(teacher_features, 0).detach()  # detach the offline backbone
-
-        # backbone on target
-        student_prefix_trgt = self.backbone.attnpool(self.backbone(images_target)['res5'])
-        student_features_trgt, captrgt = generate_first_feature_caption(student_prefix_trgt,
-                                                                        clipcap_model.to(self.device), 40)
-        student_features_trgt = torch.stack(student_features_trgt, 0)
-
-        # backbone on src
-        student_prefix_src = self.backbone.attnpool(self.backbone(images_src)['res5'])
-        student_features_src, captrgt_src = generate_first_feature_caption(student_prefix_src,
-                                                                           clipcap_model.to(self.device),
-                                                                           40)
-        student_features_src = torch.stack(student_features_src, 0)
-
-        teacher_features = teacher_features.squeeze(1)
-        student_features_trgt = student_features_trgt.squeeze(1)
-        student_features_src = student_features_src.squeeze(1)
-        del images_src
-        del images_target
-
-        l1_loss = torch.nn.L1Loss()
-
-        kd_loss = l1_loss(teacher_features, student_features_src)
-
-        student_features_trgt = torch.cat(GatherLayer.apply(student_features_trgt), dim=0)
-        student_features_src = torch.cat(GatherLayer.apply(student_features_src), dim=0)
-
-        student_features_trgt = student_features_trgt / student_features_trgt.norm(dim=1, keepdim=True)
-        student_features_src = student_features_src / student_features_src.norm(dim=1, keepdim=True)
-
-        loss_fn = nn.CrossEntropyLoss()
-
-        joint_features = student_features_trgt @ student_features_src.t()
-        n = len(joint_features)
-        ground_truth = torch.arange(n, dtype=torch.long, device=self.device)
-
-
-        cont_loss = loss_fn(joint_features, ground_truth)
-
-        return cont_loss, kd_loss
 
     def v2l_contrastive(self, images_src, images_target, clipcap_model, KD_regularization=True):
 
@@ -274,30 +230,6 @@ class GeneralizedRCNN(nn.Module):
             kd_loss = None
 
         student_features_src = self.projector(student_features_src)
-        # #
-        # # # loss, captions = unsupervised_loss(prefix_src, prefix_trgt, clipcap_model.to(self.device), 40)
-        # # # loss, captions = unsupervised_feature_loss(prefix_src, prefix_trgt, clipcap_model.to(self.device), 40)
-        # # if self.device == torch.device('cuda:0'):
-        # # #     from torchvision.utils import save_image
-        # # #     import clip
-        # # #     model, preprocess = clip.load("RN50", device='cpu')
-        # # #     p_src = model.encode_image(images_src.cpu())
-        # # #     p_tgt = model.encode_image(images_target.cpu())
-        # # #     _, clip_src = generate_first_feature_caption(p_src, clipcap_model.to('cpu'), 40)
-        # # #     _, clip_trgt = generate_first_feature_caption(p_tgt, clipcap_model.to('cpu'), 40)
-        # # #
-        # # #
-        # # #     print("cap_src  ", clip_src)
-        # # #     print("cap_trgt ", clip_trgt)
-        # #
-        #     print("region_clip_src  ", capsrc)
-        #     print("region_clip_trgt  ", captrgt)
-        # from torchvision.utils import save_image
-        # storage = get_event_storage()
-        # p = '/projects/sina/RegionCLIP/images/'
-        # for i in range(len(images_src)):
-        #     save_image(images_src[i].cpu(), p + "img_src_iter_{}_img_{}.png".format(storage.iter, i))
-        #     save_image(images_target[i].cpu(), p + "img_trgt_iter_{}_img_{}.png".format(storage.iter, i))
 
         del images_src
         del images_target
