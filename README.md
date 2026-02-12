@@ -8,7 +8,6 @@ Please contact [Sina Malakouti](https://sinamalakouti.github.io/) at sem238(at)p
 
 [**arXiv**](https://papers.bmvc2023.org/0444.pdf) | [**Official BMVC Proceeding**](https://papers.bmvc2023.org/0444.pdf) | [**Video**](https://bmvc2022.mpi-inf.mpg.de/BMVC2023/0444_video.mp4) | [**Poster**](https://bmvc2022.mpi-inf.mpg.de/BMVC2023/0444_poster.pdf) | [**Supplement**](https://bmvc2022.mpi-inf.mpg.de/BMVC2023/0444_supp.pdf) | [**BMVC Project Page**](https://proceedings.bmvc2023.org/444/)
 
-**This repo will be updated soon!**
 
 ### Methodology
 <p align="center">
